@@ -1,0 +1,22 @@
+{
+  "name": "recipe-searcher",
+  "version": "1.0.0",
+  "description": "recipe-searcher front-end project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "food",
+    "searcher",
+    "js"
+  ],
+  "author": "kevinjc",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.16.3"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
