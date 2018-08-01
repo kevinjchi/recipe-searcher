@@ -22,12 +22,12 @@ const limitRecipeTitle = (recipe, limit = 17) => {
          */
         title.split(' ').reduce((accumulator, current) => {
             if (accumulator + current.length <= limit) {
-                newTitle.push(current)
+                newTitle.push(current);
             }
-            return accumulator + current.length
+            return accumulator + current.length;
         }, 0);
         // return the result
-        return `${newTitle.join(' ')} ...)`
+        return `${newTitle.join(' ')} ...`;
     }
     return title;
 }
