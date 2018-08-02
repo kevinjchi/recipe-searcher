@@ -27,7 +27,7 @@ const controlSearch = async () => {
 
     // 5) render result on UI
         clearLoader();
-        searchView.renderResult(state.search.result);
+        searchView.renderResults(state.search.result);
     }
 }
 elements.searchForm.addEventListener('submit', e => {
@@ -35,6 +35,14 @@ elements.searchForm.addEventListener('submit', e => {
     controlSearch();
 
 });
-const search = new Search('Pizza');
-console.log(search);
-search.getResult();
+
+elements.searchResPages.addEventListener('click', e => {
+    // read MDN
+    const btn = e.target.closest('.btn-inline');
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto, 10);
+        // clear out before rendering results
+        searchView.clearResult();
+        searchView.renderResults(state.search.result, goToPage)
+    };
+});
