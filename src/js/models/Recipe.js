@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {key, proxy} from '../config';
+import { key, proxy } from '../config';
 
 export default class Recipe {
     constructor(id) {
@@ -7,21 +7,23 @@ export default class Recipe {
     }
 
     async getRecipe() {
-        try{
-            const res = await axios(`${proxy}http://food2fork.com/api/get?key=${key}&q=${this.id}`);
+        try {
+            const res = await axios(`${proxy}http://food2fork.com/api/get?key=${key}&rId=${this.id}`);
             this.title = res.data.recipe.title;
             this.author = res.data.recipe.publisher;
             this.img = res.data.recipe.image_url;
             this.url = res.data.recipe.source_url;
             this.ingredients = res.data.recipe.ingredients;
-        } catch(error) {
-            alert('Something went wrong');
+        } catch (error) {
+            console.log(error);
+            alert('Something went wrong :(');
         }
-    };
+    }
 
     calcTime() {
+        // Assuming that we need 15 min for each 3 ingredients
         const numIngredients = this.ingredients.length;
-        const periods = math.ceil(numIngredients/ 3);
+        const periods = Math.ceil(numIngredients / 3);
         this.time = periods * 15;
     }
 
@@ -31,19 +33,22 @@ export default class Recipe {
 
     parseIngredients() {
         const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
-        const unitShort = ['tbsp', 'tbsp', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        const units = [...unitsShort, 'kg', 'g'];
+
         const newIngredients = this.ingredients.map(el => {
             // 1) Uniform units
             let ingredient = el.toLowerCase();
-            unitsLong.forEach((unitShort, i) => {
-                ingredient = ingredient.replace(unit, unitShort[i]);
+            unitsLong.forEach((unit, i) => {
+                ingredient = ingredient.replace(unit, unitsShort[i]);
             });
-            // 2) remove parentheses
-            ingredient = ingredient.replace(/ *\([^)]*\) *\g, ' ');
+
+            // 2) Remove parentheses
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
 
             // 3) Parse ingredients into count, unit and ingredient
             const arrIngredient = ingredient.split(' ');
-            const unitIndex = arrIngredient.findIndex(elTwo => unitsShort.includes(elTwo));
+            const unitIndex = arrIngredient.findIndex(elTwo => units.includes(elTwo));
 
             let objIng;
             if (unitIndex > -1) {
@@ -51,36 +56,38 @@ export default class Recipe {
                 // Ex. 4 1/2 cups, arrCount is [4, 1/2] --> eval("4+1/2") --> 4.5
                 // Ex. 4 cups, arrCount is [4]
                 const arrCount = arrIngredient.slice(0, unitIndex);
+                
                 let count;
-                if (arrCount.length === 1){
+                if (arrCount.length === 1) {
                     count = eval(arrIngredient[0].replace('-', '+'));
                 } else {
                     count = eval(arrIngredient.slice(0, unitIndex).join('+'));
                 }
 
                 objIng = {
-                    count: count,
+                    count,
                     unit: arrIngredient[unitIndex],
                     ingredient: arrIngredient.slice(unitIndex + 1).join(' ')
                 };
 
             } else if (parseInt(arrIngredient[0], 10)) {
-                // there is No unit, but 1st element is a number
+                // There is NO unit, but 1st element is number
                 objIng = {
                     count: parseInt(arrIngredient[0], 10),
                     unit: '',
-                    ingredient: arrIngredient.slice(1).join;
+                    ingredient: arrIngredient.slice(1).join(' ')
                 }
             } else if (unitIndex === -1) {
-                // There is No unit and No number
+                // There is NO unit and NO number in 1st position
                 objIng = {
                     count: 1,
                     unit: '',
-                    ingredient: ingredient;
+                    ingredient
                 }
             }
-            return objIng; 
+
+            return objIng;
         });
         this.ingredients = newIngredients;
     }
-};
+}
