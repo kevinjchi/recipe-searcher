@@ -8,9 +8,9 @@ export default class List {
     addItem (count, unit, ingredient) {
         const item = {
             id: uniqid(),
-        count,
-        unit, 
-        ingredient
+            count,
+            unit, 
+            ingredient
         }
         this.items.push(item);
         return item;
