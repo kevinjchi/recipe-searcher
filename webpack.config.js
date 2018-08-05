@@ -8,7 +8,10 @@ module.exports = {
         filename: 'js/bundle.js'
     },
     devServer: {
-        contentBase: './dist'
+
+        port: 3000,
+        open : true,  // this is point option
+        contentBase : "./dist",
     },
     plugins: [
         new HtmlWebpackPlugin({

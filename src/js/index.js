@@ -6,6 +6,7 @@ import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likesView from './views/likesView';
 
 
 import { elements, renderLoader, clearLoader } from './views/base';
@@ -91,7 +92,10 @@ const controlRecipe = async () => {
     
             // Render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe);
+            recipeView.renderRecipe(
+                state.recipe,
+                state.likes ? state.likes.isLiked(id) : undefined
+            );
 
         } catch (err) {
             console.log(err);
@@ -118,6 +122,7 @@ const controlList = () => {
         const item = state.list.addItem(el.count, el.unit, el.ingredient);
         listView.renderItem(item);
     });
+
 }
 
 // Handle delete and update list item
@@ -143,13 +148,14 @@ elements.shopping.addEventListener('click', e => {
 /**
  * Like controller
  */
+// temporary solution for testing
 const controlLike = () => {
     if (!state.likes) {
         state.likes = new Likes()};
     const currentId = state.recipe.id;
     // current recipe is not yet liked
 
-    if (!state.likes.isLiked(currentId) ) {
+    if (!state.likes.isLiked(currentId)) {
         // Add like
         const newLike = state.likes.addLike(
             currentId,
@@ -157,10 +163,21 @@ const controlLike = () => {
             state.recipe.author,
             state.recipe.img
         );
-        console.log(state.likes);
+        //toggleLikesBtn
+        likesView.toggleLikeBtn(true);
+        
+        //add likes to UI
+        likesView.renderLikes(newLike);
     } else {
-        console.log(state.likes);
+        // remove like from the state
+        state.likes.deleteLike(currentId);
+        //toggleLikesBtn
+        likesView.toggleLikeBtn(false);
+        // remove like from UI list
+        likesView.deleteLike(currentId)
+
     }
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
 }
 
 
