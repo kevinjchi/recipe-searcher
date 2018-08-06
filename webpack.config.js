@@ -8,8 +8,6 @@ module.exports = {
         filename: 'js/bundle.js'
     },
     devServer: {
-
-        port: 3000,
         open : true,  // this is point option
         contentBase : "./dist",
     },
