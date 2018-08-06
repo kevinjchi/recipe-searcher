@@ -9,7 +9,7 @@ module.exports = {
     },
     devServer: {
         open : true,  // this is point option
-        contentBase : "./dist",
+        contentBase : './dist',
     },
     plugins: [
         new HtmlWebpackPlugin({
