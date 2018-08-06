@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
+    "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p"
   },
   "keywords": [
     "food",
@@ -28,6 +29,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "express": "^4.16.3",
     "fractional": "^1.0.0",
     "jquery": "^3.3.1",
     "uniqid": "^5.0.3"
