@@ -4,11 +4,15 @@
   "description": "recipe-searcher front-end project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "start": "node server.js",
     "heroku-postbuild": "webpack -p"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
   },
   "keywords": [
     "food",
@@ -22,7 +26,8 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
-    "webpack": "^4.16.3",
+    "jest": "^23.4.2",
+    "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   },

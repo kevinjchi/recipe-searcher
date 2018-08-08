@@ -25,7 +25,7 @@ body {
   min-height: calc(100vh - 2 * 4vw); }
 
 .container {
-  max-width: 120rem;
+  max-width: 100rem;
   margin: 4vw auto;
   background-color: #fff;
   border-radius: 6px;
@@ -128,7 +128,7 @@ body {
   text-transform: uppercase;
   margin-bottom: 2.5rem;
   text-align: center;
-  transform: skewY(-3deg); }
+  transform: skewY(+3deg); }
 
 .copyright {
   color: #968B87;
@@ -340,7 +340,7 @@ body {
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
       padding: 1.3rem 2rem;
-      background-image: linear-gradient(to right bottom, #FBDB89, #F48982); }
+      background-image: linear-gradient(to right bottom, #FBDB89, #34CC6C); }
   .recipe__details {
     display: flex;
     align-items: center;
@@ -372,7 +372,7 @@ body {
     opacity: 1;
     transform: translateY(0); }
   .recipe__love {
-    background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+    background-image: linear-gradient(to right bottom, #FBDB89, #34CC6C);
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -443,7 +443,7 @@ body {
   .shopping__list {
     list-style: none;
     max-height: 77rem;
-    overflow: scroll; }
+     }
   .shopping__item {
     display: flex;
     align-items: flex-start;
@@ -484,7 +484,7 @@ body {
     background-image: linear-gradient(to right, transparent 0%, #fff 40%, #fff 100%);
     width: 3.75rem;
     padding-left: 2rem;
-    visibility: hidden;
+    visibility: visible;
     opacity: 0;
     transition: all .5s; }
   .shopping__item:hover .shopping__delete {
