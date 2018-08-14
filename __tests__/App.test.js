@@ -1,7 +1,5 @@
 import { removeSName } from '../src/js/filterNames';
 
-
-
 describe('Testing the function which removes names starting with the letter S', () => {
     it('should remove all names starting with S', () => {
         const names = ['Scott', 'Simmon', 'Courtney'];
